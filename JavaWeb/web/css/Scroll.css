@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#slider {
+    width: 700px;
+    height: 300px;
+}
+#slider ul, a{
+	width: 700px;
+	height: 300px;
+}
+
+#slider {
+    position: absolute;
+    /* border: 2px solid black; */
+	border-radius: 15px;
+    margin: 120px 0 0 100px;
+    overflow: hidden;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+	box-shadow: 1px 1px 10px #c5b9ff;
+}
+
+#slider ul {
+    position: absolute;
+    list-style-type: none;
+    width: 7000px;
+    /*transition-duration: 0.3s;*/
+}
+
+#slider li {
+    float: left;
+}
+
+#slider a {
+    display: inline-block;
+}
+
+#slider img {
+    width: 100%;
+    height: 100%;
+}
+
+#slider:hover .arrow-container{
+    display: block;
+}
+.arrow-container {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 50%;
+    margin-top: -25px;
+    display: none;
+}
+
+.arrow-container span {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* background: rgba(215, 226, 255, 0.6); */
+	outline: none;
+}
+
+.left-arrow {
+    left: 0px;
+    cursor: pointer;
+}
+
+.left-arrow img{
+	width: 50px;
+	height: 50px;
+    background: url(../img/arrowL.png) no-repeat;
+	border-radius: 100%;
+}
+.right-arrow {
+    right: 0px;
+    cursor: pointer;
+}
+.right-arrow img{
+    width: 50px;
+    height: 50px;
+    background: url(../img/arrowR.png)  no-repeat;
+	border-radius: 100%;
+}
+
+.indicator-container {
+    position: absolute;
+    width: 180px;
+    height: 36px;
+    line-height: 36px;
+    bottom: 0;
+    left: 80%;
+    margin-left: -75px;
+    text-align: center;
+}
+
+.indicator {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    background: rgb(255, 199, 226,0.5);
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: url(../img/icons.png) -855px -727px;
+}

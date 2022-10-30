@@ -1,0 +1,62 @@
+#body{
+	height: 943px;
+	width: 1900px;
+	background: url(../img/game_bg.png);
+	padding-top: 30px;
+}
+#body .body_c {
+	width: 800px;
+	height: 900px;
+	margin: 0 auto;
+	background: url(../img/user_bg.png) no-repeat;
+	border-radius: 20px;
+	box-shadow: #842CFF 10px 10px 50px 20px;
+}
+#body .body_c .table{
+	position: absolute;
+}
+#body .body_c table{
+	position: relative;
+	top: 100px;
+	left: 100px;
+	width: 600px;
+	height: 700px;
+	margin: 0 auto;
+	border-radius: 10px;
+	border: 5px solid rgb(255, 169, 255,0.6);
+	border-spacing: 0px;
+	background: rgb(255, 255, 242,0.3);
+	opacity: 1;
+}
+
+
+/*#body .body_c{*/
+/*	font:normal 800 32px/60px "微软雅黑";*/
+/*	color: #332c41;*/
+/*	text-shadow: 1px 0px 5px rgb(254, 231, 255);*/
+/*	text-align: center;*/
+/*}*/
+#body .body_c td{
+	border-bottom: 3px solid rgb(255, 140, 186,0.3);
+	text-align: center;
+	font:normal 800 32px/60px "微软雅黑";
+	color: #332c41;
+	text-shadow: 1px 0px 5px rgb(254, 231, 255);
+}
+#body .body_c img{
+	opacity: 1;
+}
+
+#body .body_c button{
+	width: 150px;
+	height: 50px;
+	border-radius: 5px;
+	background: rgb(123, 209, 255);
+	/* 动态效果 */
+	cursor: pointer;
+	transition: all 0.3s;
+	opacity: 1;
+}
+#body .body_c button:active{
+	background: rgb(182, 153, 255);
+}

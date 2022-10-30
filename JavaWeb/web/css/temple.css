@@ -1,0 +1,125 @@
+button:active{
+	transform: scale(0.90);
+}
+
+/* 顶部 B */
+#top{
+	height: 80px;
+	width: 1900px;
+	background-color: #ff7979;
+}
+#top .center{
+	width: 80%;
+	margin: 0 auto;
+}
+#top .logo{
+	height: 80px;
+	width: 80px;
+	background: url(../img/logo.png) no-repeat;
+	font:normal 800 20px/80px "微软雅黑";
+	padding-left: 90px;
+	color: #ffcee9;
+	text-shadow: 5px 5px 3px #FF6078;
+}
+#top .top_l{
+	margin-left: 50px;
+}
+#top .top_l li{
+	display: inline-block;
+	font:normal 400 20px/80px "微软雅黑";
+	margin-right: 30px;
+}
+
+#top .top_l img{
+	height: 40px;
+	width: 40px;
+	vertical-align: middle;
+}
+#top .top_l a{
+	text-decoration: none;
+	color: #aee6ff;
+}
+#top .top_l a:hover{
+	color: #f6feff;
+}
+#top .top_c .txt{
+	height: 30px;
+	width: 360px;
+	margin-top: 25px;
+	margin-left: 120px;
+	border-radius: 10px 0px 0px 10px;
+	background-color: #c2daff;
+	outline: none;
+}
+#top .top_c .btn{
+	height: 30px;
+	width: 50px;
+	margin-top: 25px;
+	border-radius: 0px 10px 10px 0px;
+	background-color: #c0efff;
+}
+#top .top_c .btn:active{
+	background: rgb(255, 231, 244,0.8);
+}
+#top .top_r{
+	width: 350px;
+}
+#top .top_r img{
+	padding: 20px;
+	height: 40px;
+	width: 40px;
+}
+#top .top_r .a1{
+	width: 80px;
+	height: 80px;
+	background: url(../img/sprite.png) no-repeat;
+	background-position: 0px -1000px;
+}
+/* 顶部 E */
+
+
+
+/* 底部 B */
+#foot{
+	height: 300px;
+	width: 1880px;
+	padding: 10px;
+	background-color: #ffb7a5;
+}
+#foot .center{
+	height: 280px;
+	border: 5px solid #ff93ab;
+	border-radius: 50px 50px 5px 5px;
+}
+#foot .foot_l{
+	height: 250px;
+	width: 550px;
+	padding-top: 50px;
+	padding-left: 150px;
+	font:normal 600 20px/50px "微软雅黑";
+}
+#foot .foot_l b{
+	color: #ff5e50;
+	font-size: 30px;
+}
+#foot .foot_r{
+	position: relative;
+	width: 378px;
+	height: 250px;
+	margin-top:15px;
+	padding-right: 150px;
+	background: url(../img/sky.png) no-repeat;
+}
+#foot .foot_r .f_txt{
+	position: absolute;
+	bottom: 50px;
+	height: 60px;
+	width: 378px;
+	border-radius: 10px;
+	background-color: rgb(255,255,255,0.8);
+	font:normal 500 20px/50px "微软雅黑";
+	word-spacing: 50px;
+	color: #ff6078;
+	text-align: center;
+}
+/* 底部 E */

@@ -1,0 +1,84 @@
+.check{
+	
+}
+
+#body{
+	width: 900px;
+	height: 550px;
+	margin: 0 auto;
+	background-color: rgb(221, 255, 253,0.6);
+	font:normal 600 26px/20px "微软雅黑";
+	color: #5e5858;
+	text-align: center;
+	padding-top: 50px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+#body table{
+	width: 800px;
+	height: 500px;
+	margin:0 auto;
+	border-radius: 10px;
+	border: 5px solid rgb(221, 255, 253,0.8);
+	border-spacing: 0px;
+}
+#body td{
+	border-bottom: 3px solid rgb(203, 255, 234);
+	text-align: center;
+}
+#body img{
+	vertical-align: middle;
+}
+#body span{
+	padding: 10px;
+	font:normal 600 18px/30px "微软雅黑";
+	color: #535e5e;
+}
+#body span:hover{
+	color: #fff8ff;
+	background-color: rgb(0, 0, 0,0.2);
+	border-radius: 20px;
+	/* font-size: 24px; */
+}
+#body input{
+	width: 50px;
+	height: 30px;
+	padding-left: 10px;
+	margin-left: 5px;
+	border-radius: 10px;
+	vertical-align: middle;
+}
+#body .submit{
+	width: 150px;
+	height: 50px;
+	border-radius: 5px;
+	background: rgb(138, 222, 201,0.7);
+	/* 动态效果 */
+	cursor: pointer;
+	transition: all 0.3s;
+}
+#body .submit:active{
+	background: rgb(125, 255, 229);
+}
+#body .td1 td{
+	width: 150px;
+}
+#body .td1 input{
+	width: 30px;
+}
+#body .price{
+	font:normal 600 16px/30px "微软雅黑";
+	color: #ff7640;
+}
+#body .tr1{
+	background: url(../img/loginBG.png);
+	color: #f7ffd3;
+}
+#body .td5{
+	text-align: left;
+	width: 130px;
+}
+#body b{
+	font:normal 600 24px/30px "微软雅黑";
+	color: #ff508d;
+}

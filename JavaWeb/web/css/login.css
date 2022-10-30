@@ -1,0 +1,149 @@
+#top .top_l .login{
+	background: #cd77ff;
+	border-radius: 5px;
+}
+
+/* 内容 B */
+#body{
+	position: relative;
+	width: 1900px;
+	height: 900px;
+	background: url(../img/loginBG.png) no-repeat;
+}
+#body .center{
+	position: relative;
+	width: 800px;
+	height: 400px;
+	margin: 0 auto;
+	top: 250px;
+}
+#body .body_l{
+	width: 400px;
+	height: 400px;
+	background: url(../img/login_l.png) no-repeat;
+	font:normal 800 32px/300px "微软雅黑";
+	border-radius: 5px;
+}
+#body .body_l span{
+	color: #ffcee9;
+	text-shadow: 5px 5px 10px #FF6078;
+	background: rgb(233, 255, 252,0.3);
+	border-radius: 10px;
+	margin: 120px;
+}
+#body .body_r{
+	position: relative;
+	width: 302px;
+	height: 350px;
+	background-color: rgb(0,0,50,0.2);
+	border-radius: 5px;
+}
+#body .body_r input{
+	width: 280px;
+	height: 48px;
+	border: 1px solid rgb(224, 255, 250,0.5);
+	border-radius: 5px;
+	padding-left: 20px;
+	box-sizing: content-box;
+}
+#body .body_r .user{
+	position: absolute;
+	top: 10px;
+}
+#body .body_r .user span{
+	font:normal 600 12px/16px "微软雅黑";
+	color: #a4ffc1;
+	margin-left: 30px;
+}
+#body .body_r .user input{
+	background: url(../img/用户.png) no-repeat;
+	background-position: 5px 18px;
+	border-radius: 5px 5px 0px 0px;
+}
+#body .body_r .pwd input{
+	background: url(../img/密码.png) no-repeat;
+	background-position: 5px 18px;
+	border-radius: 0px 0px 5px 5px;
+}
+#body .body_r .phone{
+	position: absolute;
+	top: 130px;
+}
+#body .body_r .phone input{
+	display: inline-block;
+	width: 200px;
+	border-radius: 5px 0px 0px 5px;
+}
+#body .body_r .phone .btn{
+	width: 58px;
+	height: 48px;
+	padding-left: 10px;
+	font:normal 800 12px "微软雅黑";
+	border-radius: 0px 5px 5px 0px;
+}
+#body .body_r .phone .btn:active{
+	background-color: #C2DAFF;
+	transition: 0.5s;
+}
+#body .body_r .submit{
+	position: absolute;
+	top: 220px;
+}
+#body .body_r .submit input{
+	width: 180px;
+	height: 60px;
+	margin-left: 40px;
+	padding-right: 20px;
+	background: rgb(215,255,250,0.5);
+	font:normal 800 20px/40px "微软雅黑";
+	color: #fffdd4;
+}
+#body .body_r .submit input:active{
+	background-color: #C2DAFF;
+	transition: 0.5s;
+}
+#body .other{
+	position: absolute;
+	bottom: 30px;
+	font:normal 800 16px "微软雅黑";
+}
+#body .other a{
+	color: #afffe1;
+}
+#body .other a:hover{
+	text-decoration: underline;
+	color: #ffcbed;
+}
+#body .other .o1{
+	position: relative;
+	left: 10px;
+}
+#body .other .o2{
+	position: relative;
+	left: 100px;
+}
+/* 内容 E */
+/* JSP */
+/* @keyframes hhh{
+	from{}
+	to{
+		transform: scale(0);
+		background: rgb(255, 90, 164,0.0);
+	}
+}
+h6{
+	position: absolute;
+	width: 100px;
+	height: 50px;
+	font:normal 800 14px/50px "微软雅黑";
+	color: #AEE6FF;
+	padding-left: 10px;
+	background: rgb(255, 90, 164,0.8);
+	border-radius: 10px;
+	top: 490px;
+	left: 1140px;
+	animation-name: hhh;
+	animation-duration: 3s;
+	animation-iteration-count: infinite; 
+}
+ */

@@ -1,0 +1,109 @@
+#top .top_l .login{
+	background: #cd77ff;
+	border-radius: 5px;
+}
+
+/* 内容 B */
+#body{
+	position: relative;
+	width: 1900px;
+	height: 900px;
+	background: url(../img/sign_bg.png) no-repeat;
+}
+#body .center{
+	position: relative;
+	width: 800px;
+	height: 400px;
+	margin: 0 auto;
+	top: 250px;
+}
+#body .body_l{
+	width: 400px;
+	height: 400px;
+	background: url(../img/login_l.png) no-repeat;
+	font:normal 800 32px/300px "微软雅黑";
+	border-radius: 5px;
+}
+#body .body_l span{
+	color: #ffcee9;
+	text-shadow: 5px 5px 10px #FF6078;
+	background: rgb(100,100,100,0.2);
+	border-radius: 10px;
+	margin: 110px;
+}
+#body .body_r{
+	position: relative;
+	width: 302px;
+	height: 350px;
+	background-color: rgb(0,0,50,0.2);
+	border-radius: 5px;
+}
+#body .body_r input{
+	width: 280px;
+	height: 48px;
+	border: 1px solid rgb(224, 255, 250,0.5);
+	border-radius: 5px;
+	padding-left: 20px;
+	box-sizing: content-box;
+}
+#body .body_r .txt{
+	margin-top: 50px;
+}
+#body .body_r .user{
+	position: absolute;
+	top: 20px;
+}
+#body .body_r .user input{
+	background: url(../img/用户.png) no-repeat;
+	background-position: 5px 18px;
+	border-radius: 5px 5px 0px 0px;
+}
+#body .body_r .pwd input{
+	background: url(../img/密码.png) no-repeat;
+	background-position: 5px 18px;
+	border-radius: 0px 0px 5px 5px;
+}
+
+#body .body_r .user span{
+	font:normal 600 18px/20px "微软雅黑";
+	color: #a4ffc1;
+	margin-left: 30px;
+}
+
+#body .body_r .submit{
+	position: absolute;
+	top: 220px;
+}
+#body .body_r .submit input{
+	width: 180px;
+	height: 60px;
+	margin-left: 35px;
+	padding-right: 30px;
+	background: rgb(215,255,250,0.5);
+	font:normal 800 20px/40px "微软雅黑";
+	color: #fffdd4;
+}
+#body .body_r .submit input:active{
+	background-color: #C2DAFF;
+}
+#body .other{
+	position: absolute;
+	bottom: 30px;
+	font:normal 800 16px "微软雅黑";
+}
+#body .other a{
+	color: #afffe1;
+}
+#body .other a:hover{
+	text-decoration: underline;
+	color: #ffcbed;
+}
+#body .other .o1{
+	position: relative;
+	left: 10px;
+}
+#body .other .o2{
+	position: relative;
+	left: 180px;
+}
+/* 内容 E */

@@ -1,0 +1,86 @@
+#top .top_l .game{
+	background: #cd77ff;
+	border-radius: 5px;
+}
+
+#body{
+	height: 943px;
+	width: 1900px;
+	background: url(../img/game_bg.png);
+}
+#body .center{
+	width: 1300px;
+	height: 943px;
+	margin: 0 auto;
+	background-color: rgb(255, 253, 247,0.5);
+}
+#body .body_t img{
+	float: left;
+	height: 128px;
+	width: 128px;
+	margin-top: 140px;
+	margin-left: 20px;
+}
+#body .body_t img:active{
+	transform: scale(0.90);
+	transition-duration: 0.5s;
+}
+@keyframes gamet{
+	0%{background: url(../img/game_1.png);}
+	33%{background: url(../img/game_2.png);}
+	66%{background: url(../img/game_3.png);}
+	100%{background: url(../img/game_1.png);}
+}
+#body .body_t .img_c img{
+	height: 300px;
+	width: 960px;
+	margin-left: 10px;
+	margin-top: 50px;
+	border-radius: 20px;
+	vertical-align: middle;
+	background: url(../img/game_1.png);
+	animation-name: gamet;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	
+}
+#body .body_t .img_c img:hover{
+	animation-play-state:paused;
+}
+#body .body_c{
+	height: 300px;
+	width: 1300px;
+}
+#body .body_c h2{
+	font:normal 800 28px/60px "微软雅黑";
+	color: #ff2382;
+	width: 150px;
+	margin-left: 40px;
+	margin-bottom: 10px;
+	border-bottom: 5px solid #ff7dcd;
+}
+#body .body_c li{
+	display: inline-block;
+	margin-left: 40px;
+	border-radius: 40px;
+}
+#body .body_c img{
+	height: 180px;
+	width: 270px;
+	border-radius: 10px;
+}
+#body .body_b{
+	width: 1160px;
+	height: 300px;
+	margin-left: 70px;
+	border-radius: 10px;
+	background: url(../img/game_新游.png) no-repeat;
+}
+#body .body_b h2{
+	font:normal 800 20px/40px "微软雅黑";
+	color: #ff8ad2;
+	width: 100px;
+	height: 40px;
+	margin-left: 40px;
+	border-bottom: 5px solid #ffc0e4;
+}

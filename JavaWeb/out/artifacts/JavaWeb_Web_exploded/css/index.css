@@ -1,0 +1,84 @@
+#top .top_l .index{
+	background: #cd77ff;
+	border-radius: 5px;
+}
+
+/* 内容 B */
+#body{
+	height: 500px;
+	width: 1800px;
+	padding: 50px;
+}
+#body .body_l{
+	height: 300px;
+	width: 700px;
+	margin-top: 75px;
+	margin-left: 50px;
+	background: url(../img/vedio1.png) no-repeat;
+	border-radius: 10px;
+}
+#body .body_r{
+	height: 355px;
+	width: 900px;
+	padding: 30px;
+}
+
+#body .body_t div{
+	margin-left: 25px;
+	margin-bottom: 30px;
+	border: 5px solid #d4fff5;
+	border-radius: 5px;
+}
+#body .body_t div:hover{
+	transform: scale(1.03);
+	transition: all 0.3s;
+}
+#body .body_b div{
+	margin-left: 25px;
+	margin-top: 50px;
+	border: 5px solid #d4fff5;
+	border-radius: 5px;
+}
+#body .body_b div:hover{
+	transform: scale(1.03);
+	transition: all 0.3s;
+}
+#body .body_t .a1{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a1.png) no-repeat;
+}
+#body .body_t .a2{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a2.png) no-repeat;
+}
+#body .body_t .a3{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a3.png) no-repeat;
+}
+#body .body_b .a4{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a4.png) no-repeat;
+}
+#body .body_b .a5{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a5.png) no-repeat;
+}
+#body .body_b .a6{
+	height: 130px;
+	width: 240px;
+	background: url(../img/a6.png) no-repeat;
+}
+#body span{
+	position: relative;
+	top: 140px;
+	font:normal 500 16px/30px "微软雅黑";
+	color: #ff654a;
+	background-color: rgb(255,255,255,0.6);
+	border-radius: 5px;
+}
+/* 内容 E */
