@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//给"全选"按钮添加单击事件
 		$("#checkAll").click(function(){
 			//"全选"按钮选中则列表中所有checkbox选中，否则全不选中
-			$("#tbodyActivity input[type='checkbox']").prop("checked",this.checked);
+			$("#tbodyClue input[type='checkbox']").prop("checked",this.checked);
 		});
 
 		//对容器加载日历-工具函数
@@ -385,7 +385,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 		}
-		
+
+
+
 	});
 	
 </script>

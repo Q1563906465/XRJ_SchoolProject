@@ -11,7 +11,8 @@ import java.util.List;
 @Service("activityRemarkService")
 public class ActivityRemarkServiceImpl implements ActivityRemarkService {
     @Autowired
-    ActivityRemarkMapper activityRemarkMapper;
+    private ActivityRemarkMapper activityRemarkMapper;
+
     @Override
     public List<ActivityRemark> queryActivityRemarkForDetailByActivityId(String activityId) {
         return activityRemarkMapper.selectActivityRemarkForDetailByActivityId(activityId);

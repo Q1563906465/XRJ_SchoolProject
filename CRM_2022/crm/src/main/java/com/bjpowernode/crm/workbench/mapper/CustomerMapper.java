@@ -3,6 +3,7 @@ package com.bjpowernode.crm.workbench.mapper;
 import com.bjpowernode.crm.workbench.domain.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerMapper {
     /**
@@ -72,4 +73,55 @@ public interface CustomerMapper {
      * @return
      */
     Customer selectCustomerByName(String name);
+
+    /**
+     * 分页查询所有的客户信息
+     * @return
+     */
+    List<Customer> selectCustomerByConditionForPage(Map<String,Object> map);
+
+    /**
+     * 根据条件查询所有客户信息的记录数
+     * @param map
+     * @return
+     */
+    int selectCountOfCustomerByCondition(Map<String,Object> map);
+
+    /**
+     * 根据用户id查询用户信息
+     * @param id
+     * @return
+     */
+    Customer selectCustomerById(String id);
+
+    /**
+     * 保存修改的客户信息
+     * @param customer
+     * @return
+     */
+    int updateCustomer(Customer customer);
+
+    /**
+     * 根据数组ids批量删除数据
+     * @param ids
+     * @return
+     */
+    int deleteCustomerByIds(String[] ids);
+
+    /**
+     * 根据id查询客户详细信息
+     * @param id
+     * @return
+     */
+    Customer selectCustomerForDetailById(String id);
+
+    /**
+     * 根据客户姓名模糊查询客户信息
+     * @param name
+     * @return
+     */
+    List<Customer> selectAllCustomerByName(String name);
+
+
+
 }
