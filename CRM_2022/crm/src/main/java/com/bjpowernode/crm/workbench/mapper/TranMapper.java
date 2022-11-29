@@ -1,9 +1,11 @@
 package com.bjpowernode.crm.workbench.mapper;
 
+import com.bjpowernode.crm.workbench.domain.Activity;
 import com.bjpowernode.crm.workbench.domain.FunnelVO;
 import com.bjpowernode.crm.workbench.domain.Tran;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TranMapper {
     /**
@@ -73,4 +75,61 @@ public interface TranMapper {
      * @return
      */
     List<FunnelVO> selectCountOfTranGroupByStage();
+
+    /**
+     * 根据条件 分页查询交易
+     * @param map
+     * @return
+     */
+    List<Tran> selectTranByConditionForPage(Map<String,Object> map);
+
+    /**
+     * 根据条件 查询交易总记录数
+     * @param map
+     * @return
+     */
+    int selectCountOfTranByCondition(Map<String,Object> map);
+
+    /**
+     * 根据数组id 删除交易
+     * @param id
+     * @return
+     */
+    int deleteTranByIds(String[] id);
+
+    /**
+     * 根据id 查询交易信息
+     * @param id
+     * @return
+     */
+    Tran selectTranById(String id);
+
+    /**
+     * 跟新交易信息
+     * @param tran
+     * @return
+     */
+    int updateTran(Tran tran);
+
+    /**
+     * 根据customerId 查询交易详情
+     * @param customerId
+     * @return
+     */
+    List<Tran> selectTranForDetailByCustomerId(String customerId);
+
+    /**
+     * 根据联系人id  查询相关绑定交易
+     * @param contactsId
+     * @return
+     */
+    List<Tran> selectTranForDetailByContactsId(String contactsId);
+
+    /**
+     * 根据联系人id查询对应的交易数量
+     * @return
+     */
+    List<FunnelVO> selectCountOfTranByContactsId();
+
+
 }

@@ -171,6 +171,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		});
 
+		queryTranForDetailByCustomerId();
+		//查询此客户的交易信息
+		function queryTranForDetailByCustomerId(){
+			var customerId = '${customer.id}';
+			$.ajax({
+				url:'workbench/customer/queryTranForDetailByCustomerId.do',
+				data:{
+					customerId:customerId
+				},
+				type:'post',
+				datatype:'json',
+				success:function(data){
+					//遍历交易详情
+					var htmlStr="";
+					$.each(data, function(index, obj){
+						htmlStr+="<tr>";
+						htmlStr+="	<td><a href=\"workbench/transaction/detailTran.do?id="+obj.id+"\" style=\"text-decoration: none;\">"+obj.name+"</a></td>";
+						htmlStr+="	<td>"+obj.money+"</td>";
+						htmlStr+="	<td>"+obj.stage+"</td>";
+						htmlStr+="	<td>"+obj.expectedDate+"</td>";
+						htmlStr+="	<td>"+obj.type+"</td>";
+						// htmlStr+="	<td><a href=\"workbench/tran/deleteTranByIds.do?id="+obj.id+"\" style=\"text-decoration: none;\"><span class=\"glyphicon glyphicon-remove\"></span>删除</a></td>";
+						htmlStr+="</tr>";
+					});
+					$("#tbody_bundTran").html(htmlStr);
+				}
+			})
+		}
+
+
 
 	});
 	
@@ -544,64 +574,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>名称</td>
 							<td>金额</td>
 							<td>阶段</td>
-							<td>可能性</td>
 							<td>预计成交日期</td>
 							<td>类型</td>
 							<td></td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><a href="../transaction/detail.jsp" style="text-decoration: none;">动力节点-交易01</a></td>
-							<td>5,000</td>
-							<td>谈判/复审</td>
-							<td>90</td>
-							<td>2017-02-07</td>
-							<td>新业务</td>
-							<td><a href="javascript:void(0);" data-toggle="modal" data-target="#removeTransactionModal" style="text-decoration: none;"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
-						</tr>
+					<tbody id="tbody_bundTran">
+<%--						<tr>--%>
+<%--							<td><a href="../transaction/detail.jsp" style="text-decoration: none;">动力节点-交易01</a></td>--%>
+<%--							<td>5,000</td>--%>
+<%--							<td>谈判/复审</td>--%>
+<%--							<td>90</td>--%>
+<%--							<td>2017-02-07</td>--%>
+<%--							<td>新业务</td>--%>
+<%--							<td><a href="javascript:void(0);" data-toggle="modal" data-target="#removeTransactionModal" style="text-decoration: none;"><span class="glyphicon glyphicon-remove"></span>删除</a></td>--%>
+<%--						</tr>--%>
 					</tbody>
 				</table>
 			</div>
-			
-			<div>
-				<a href="../transaction/save.jsp" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>
-			</div>
+
+<%--			<div>--%>
+<%--				<a href="../transaction/save.jsp" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建交易</a>--%>
+<%--			</div>--%>
 		</div>
 	</div>
-	
-	<!-- 联系人 -->
-	<div>
-		<div style="position: relative; top: 20px; left: 40px;">
-			<div class="page-header">
-				<h4>联系人</h4>
-			</div>
-			<div style="position: relative;top: 0px;">
-				<table id="activityTable" class="table table-hover" style="width: 900px;">
-					<thead>
-						<tr style="color: #B3B3B3;">
-							<td>名称</td>
-							<td>邮箱</td>
-							<td>手机</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><a href="../contacts/detail.jsp" style="text-decoration: none;">李四</a></td>
-							<td>lisi@bjpowernode.com</td>
-							<td>13543645364</td>
-							<td><a href="javascript:void(0);" data-toggle="modal" data-target="#removeContactsModal" style="text-decoration: none;"><span class="glyphicon glyphicon-remove"></span>删除</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			
-			<div>
-				<a href="javascript:void(0);" data-toggle="modal" data-target="#createContactsModal" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建联系人</a>
-			</div>
-		</div>
-	</div>
+
+<%--	<!-- 联系人 -->--%>
+<%--	<div>--%>
+<%--		<div style="position: relative; top: 20px; left: 40px;">--%>
+<%--			<div class="page-header">--%>
+<%--				<h4>联系人</h4>--%>
+<%--			</div>--%>
+<%--			<div style="position: relative;top: 0px;">--%>
+<%--				<table id="activityTable" class="table table-hover" style="width: 900px;">--%>
+<%--					<thead>--%>
+<%--						<tr style="color: #B3B3B3;">--%>
+<%--							<td>名称</td>--%>
+<%--							<td>邮箱</td>--%>
+<%--							<td>手机</td>--%>
+<%--							<td></td>--%>
+<%--						</tr>--%>
+<%--					</thead>--%>
+<%--					<tbody>--%>
+<%--						<tr>--%>
+<%--							<td><a href="../contacts/detail.jsp" style="text-decoration: none;">李四</a></td>--%>
+<%--							<td>lisi@bjpowernode.com</td>--%>
+<%--							<td>13543645364</td>--%>
+<%--							<td><a href="javascript:void(0);" data-toggle="modal" data-target="#removeContactsModal" style="text-decoration: none;"><span class="glyphicon glyphicon-remove"></span>删除</a></td>--%>
+<%--						</tr>--%>
+<%--					</tbody>--%>
+<%--				</table>--%>
+<%--			</div>--%>
+
+<%--			<div>--%>
+<%--				<a href="javascript:void(0);" data-toggle="modal" data-target="#createContactsModal" style="text-decoration: none;"><span class="glyphicon glyphicon-plus"></span>新建联系人</a>--%>
+<%--			</div>--%>
+<%--		</div>--%>
+<%--	</div>--%>
 	
 	<div style="height: 200px;"></div>
 </body>

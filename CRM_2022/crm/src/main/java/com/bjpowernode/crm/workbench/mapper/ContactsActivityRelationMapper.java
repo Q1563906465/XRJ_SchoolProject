@@ -1,5 +1,6 @@
 package com.bjpowernode.crm.workbench.mapper;
 
+import com.bjpowernode.crm.workbench.domain.ClueActivityRelation;
 import com.bjpowernode.crm.workbench.domain.ContactsActivityRelation;
 
 import java.util.List;
@@ -59,4 +60,11 @@ public interface ContactsActivityRelationMapper {
      * @return
      */
     int insertContactsActivityRelationByList(List<ContactsActivityRelation> list);
+
+    /**
+     * 根据contactsId和activityId删除线索和市场活动的关联关系
+     * @param relation
+     * @return
+     */
+    int deleteContactsActivityRelationByContactsIdActivityId(ContactsActivityRelation relation);
 }

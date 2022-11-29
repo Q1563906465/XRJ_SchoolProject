@@ -50,19 +50,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			cancelAndSaveBtnDefault = true;
 		});
 		
-		$(".remarkDiv").mouseover(function(){
+		// $(".remarkDiv").mouseover(function(){
+		// 	$(this).children("div").children("div").show();
+		// });
+		//
+		// $(".remarkDiv").mouseout(function(){
+		// 	$(this).children("div").children("div").hide();
+		// });
+		//
+		// $(".myHref").mouseover(function(){
+		// 	$(this).children("span").css("color","red");
+		// });
+		//
+		// $(".myHref").mouseout(function(){
+		// 	$(this).children("span").css("color","#E6E6E6");
+		// });
+		//给备注修改和删除动态添加鼠标事件
+		$("#remarkDivList").on("mouseover",".remarkDiv",function(){
 			$(this).children("div").children("div").show();
 		});
-		
-		$(".remarkDiv").mouseout(function(){
+
+		$("#remarkDivList").on("mouseout",".remarkDiv",function(){
 			$(this).children("div").children("div").hide();
 		});
-		
-		$(".myHref").mouseover(function(){
+
+		$("#remarkDivList").on("mouseover",".myHref",function(){
 			$(this).children("span").css("color","red");
 		});
-		
-		$(".myHref").mouseout(function(){
+
+		$("#remarkDivList").on("mouseout",".myHref",function(){
 			$(this).children("span").css("color","#E6E6E6");
 		});
 		
@@ -87,6 +103,121 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         }
                     }, 100);
                 });
+
+		//给备注"保存"按钮添加单击事件
+		$("#saveCreateTranRemarkBtn").click(function(){
+			var noteContent=$("#remark").val();
+			if(noteContent==""){
+				alert("备注不能为空");
+				return;
+			}
+			var tranId='${tran.id}';
+
+			$.ajax({
+				url:'workbench/tran/saveCreateTranRemark.do',
+				data:{
+					tranId:tranId,
+					noteContent:noteContent,
+				},
+				type:'post',
+				datatype:'json',
+				success:function(data){
+					if(data.code=="1"){
+						$("#remark").val("");
+						var htmlStr="";
+						htmlStr+="<div class=\"remarkDiv\" id=\"div_"+data.retData.id+"\" style=\"height: 60px;\">";
+						htmlStr+="	<img title=\""+data.retData.id+"\" src=\"image/user-thumbnail.png\" style=\"width: 30px; height:30px;\">";
+						htmlStr+="	<div style=\"position: relative; top: -40px; left: 40px;\" >";
+						htmlStr+="	<h5>"+data.retData.noteContent+"</h5>";
+						htmlStr+="		<font color=\"gray\">交易</font> <font color=\"gray\">-</font> <b>${tran.customerId}-${tran.name}</b> <small style=\"color: gray;\">"+data.retData.createTime+" 由${sessionScope.sessionUser.name}创建</small>";
+						htmlStr+="		<div style=\"position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;\">";
+						htmlStr+="			<a class=\"myHref\" name=\"editA\" remarkId=\""+data.retData.id+"\" href=\"javascript:void(0);\"><span class=\"glyphicon glyphicon-edit\" style=\"font-size: 20px; color: #E6E6E6;\"></span></a>";
+						htmlStr+="			&nbsp;&nbsp;&nbsp;&nbsp;";
+						htmlStr+="			<a class=\"myHref\" name=\"deleteA\" remarkId=\""+data.retData.id+"\" href=\"javascript:void(0);\"><span class=\"glyphicon glyphicon-remove\" style=\"font-size: 20px; color: #E6E6E6;\"></span></a>";
+						htmlStr+="		</div>";
+						htmlStr+="	</div>";
+						htmlStr+="</div>";
+						$("#remarkDiv").before(htmlStr);
+					}else{
+						alert(data.message);
+					}
+				}
+			});
+		});
+
+		//按回车键则提交保存备注
+		$(window).keydown(function (e){
+			if(e.keyCode==13){
+				$("#saveCreateTranRemarkBtn").click();
+			}
+		});
+
+		//给"修改"图标添加单击事件
+		$("#remarkDivList").on("click","a[name='editA']",function(){
+			//获取修改的备注id和noteContent
+			var id=$(this).attr("remarkId");
+			var noteContent=$("#div_"+id+" h5").text();
+			$("#edit-id").val(id);
+			$("#edit-noteContent").val(noteContent);
+			$("#editRemarkModal").modal("show");
+		})
+
+		//给"更新"按钮添加单击事件
+		$("#updateRemarkBtn").click(function(){
+			var id=$("#edit-id").val();
+			var noteContent=$.trim($("#edit-noteContent").val());
+			if(noteContent==""){
+				alert("备注内容不能空");
+				return;
+			}
+			$.ajax({
+				url:'workbench/tran/saveEditTranRemark.do',
+				data:{
+					id:id,
+					noteContent:noteContent
+				},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					if(data.code=="1"){
+						$("#editRemarkModal").modal("hide");
+						//刷新备注列表
+						$("#div_"+data.retData.id+" h5").text(data.retData.noteContent);
+						$("#div_"+data.retData.id+" small").text(" "+data.retData.editTime+"由${sessionScope.sessionUser.name}修改");
+					}else{
+						alert(data.message);
+						$("#editRemarkModal").modal("show");
+					}
+				}
+			});
+		})
+
+		//给所有的"删除"图标添加单击事件
+		$("#remarkDivList").on("click","a[name='deleteA']",function(){
+			var id=$(this).attr("remarkId");
+
+			$.ajax({
+				url:'workbench/tran/deleteTranRemarkById.do',
+				data:{
+					id:id
+				},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					if(data.code=="1"){
+						$("#div_"+id).remove();
+					}else{
+						alert(data.message);
+					}
+				}
+			});
+		});
+
+
+
+
+
+
 	});
 	
 	
@@ -95,6 +226,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
+
+<!-- 修改市场活动备注的模态窗口 -->
+<div class="modal fade" id="editRemarkModal" role="dialog">
+	<%-- 备注的id --%>
+	<input type="hidden" id="remarkId">
+	<div class="modal-dialog" role="document" style="width: 40%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">×</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">修改备注</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+					<input type="hidden" id="edit-id">
+					<div class="form-group">
+						<label for="edit-noteContent" class="col-sm-2 control-label">内容</label>
+						<div class="col-sm-10" style="width: 81%;">
+							<textarea class="form-control" rows="3" id="edit-noteContent"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="updateRemarkBtn">更新</button>
+			</div>
+		</div>
+	</div>
+</div>
 	
 	<!-- 返回按钮 -->
 	<div style="position: relative; top: 35px; left: 10px;">
@@ -238,7 +400,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	
 	<!-- 备注 -->
-	<div style="position: relative; top: 100px; left: 40px;">
+	<div id="remarkDivList" style="position: relative; top: 100px; left: 40px;">
 		<div class="page-header">
 			<h4>备注</h4>
 		</div>
@@ -247,7 +409,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<img title="${remark.createBy}" src="image/user-thumbnail.png" style="width: 30px; height:30px;">
 				<div style="position: relative; top: -40px; left: 40px;" >
 					<h5>${remark.noteContent}</h5>
-					<font color="gray">交易</font> <font color="gray">-</font> <b>${tran.name}</b> <small style="color: gray;"> ${remark.editFlag=='0'?remark.createTime.concat("由").concat(remark.createBy).concat("创建"):remark.editTime.concat("由").concat(remark.editBy).concat("修改")}</small>
+					<font color="gray">交易</font> <font color="gray">-</font> <b>${tran.customerId}-${tran.name}</b> <small style="color: gray;"> ${remark.editFlag=='0'?remark.createTime.concat("由").concat(remark.createBy).concat("创建"):remark.editTime.concat("由").concat(remark.editBy).concat("修改")}</small>
 					<div style="position: relative; left: 500px; top: -30px; height: 30px; width: 100px; display: none;">
 						<a class="myHref" name="editA" remarkId="${remark.id}" href="javascript:void(0);"><span class="glyphicon glyphicon-edit" style="font-size: 20px; color: #E6E6E6;"></span></a>
 						&nbsp;&nbsp;&nbsp;&nbsp;
@@ -289,7 +451,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<textarea id="remark" class="form-control" style="width: 850px; resize : none;" rows="2"  placeholder="添加备注..."></textarea>
 				<p id="cancelAndSaveBtn" style="position: relative;left: 737px; top: 10px; display: none;">
 					<button id="cancelBtn" type="button" class="btn btn-default">取消</button>
-					<button type="button" class="btn btn-primary">保存</button>
+					<button id="saveCreateTranRemarkBtn" type="button" class="btn btn-primary">保存</button>
 				</p>
 			</form>
 		</div>
@@ -318,8 +480,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>${th.stage}</td>
 								<td>${th.money}</td>
 								<td>${th.expectedDate}</td>
-								<td>${tran.createBy}</td>
-								<td>${tran.createTime}</td>
+								<td>${th.createBy}</td>
+								<td>${th.createTime}</td>
 							</tr>
 						</c:forEach>
 <%--						<tr>--%>

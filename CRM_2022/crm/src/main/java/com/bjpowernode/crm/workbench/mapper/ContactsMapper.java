@@ -1,6 +1,7 @@
 package com.bjpowernode.crm.workbench.mapper;
 
 import com.bjpowernode.crm.workbench.domain.Contacts;
+import com.bjpowernode.crm.workbench.domain.Tran;
 
 import java.util.List;
 import java.util.Map;
@@ -101,5 +102,14 @@ public interface ContactsMapper {
      * @return
      */
     Contacts selectContactsForDetailById(String id);
+
+    /**
+     * 根据联系人姓名模糊查询联系人
+     * @param contactsName
+     * @return
+     */
+    List<Contacts> selectContactsForDetailByContactsName(String contactsName);
+
+
 
 }

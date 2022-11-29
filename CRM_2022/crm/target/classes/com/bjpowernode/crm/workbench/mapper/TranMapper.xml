@@ -313,4 +313,140 @@
     join tbl_dic_value dv on t.stage=dv.id
     group by t.stage
   </select>
+
+  <select id="selectTranByConditionForPage" parameterType="map" resultMap="BaseResultMap">
+    select t.id, u1.name as owner, t.money, t.name, t.expected_date, c1.name as customer_id, dv2.value as stage, dv1.value as type, dv3.value as source, a.name as activity_id,
+           c2.fullname as contacts_id, u2.name as create_by, t.create_time, u3.name as edit_by, t.edit_time, t.description, t.contact_summary,
+           t.next_contact_time
+    from tbl_tran t
+    join tbl_user u1 on t.owner=u1.id
+    join tbl_user u2 on t.create_by=u2.id
+    left join tbl_user u3 on t.edit_by=u3.id
+    left join tbl_customer c1 on t.customer_id=c1.id
+    left join tbl_contacts c2 on t.contacts_id=c2.id
+    left join tbl_activity a on t.activity_id=a.id
+    join tbl_dic_value dv1 on t.type=dv1.id
+    join tbl_dic_value dv2 on t.stage=dv2.id
+    join tbl_dic_value dv3 on t.source=dv3.id
+    <where>
+      <if test="owner!=null and owner!=''">
+        and u1.name like '%' #{owner} '%'
+      </if>
+      <if test="name!=null and name!=''">
+        and t.name like '%' #{name} '%'
+      </if>
+      <if test="customerName!=null and customerName!=''">
+        and c1.name like '%' #{customerName} '%'
+      </if>
+      <if test="stage!=null and stage!=''">
+        and t.stage=#{stage}
+      </if>
+      <if test="type!=null and type!=''">
+        and t.type=#{type}
+      </if>
+      <if test="source!=null and source!=''">
+        and t.source=#{source}
+      </if>
+      <if test="owner!=null and owner!=''">
+        and u1.name like '%' #{owner} '%'
+      </if>
+      <if test="contactsName!=null and contactsName!=''">
+        and c2.fullname like '%' #{contactsName} '%'
+      </if>
+    </where>
+    order by t.create_time desc
+    limit #{beginNo},#{pageSize}
+  </select>
+  <select id="selectCountOfTranByCondition" parameterType="map" resultType="int">
+    select count(*)
+    from tbl_tran t
+    join tbl_user u1 on t.owner=u1.id
+    join tbl_user u2 on t.create_by=u2.id
+    left join tbl_user u3 on t.edit_by=u3.id
+    left join tbl_customer c1 on t.customer_id=c1.id
+    left join tbl_contacts c2 on t.contacts_id=c2.id
+    left join tbl_activity a on t.activity_id=a.id
+    join tbl_dic_value dv1 on t.type=dv1.id
+    join tbl_dic_value dv2 on t.stage=dv2.id
+    join tbl_dic_value dv3 on t.source=dv3.id
+    <where>
+      <if test="owner!=null and owner!=''">
+        and u1.name like '%' #{owner} '%'
+      </if>
+      <if test="name!=null and name!=''">
+        and t.name like '%' #{name} '%'
+      </if>
+      <if test="customerName!=null and customerName!=''">
+        and c1.name like '%' #{customerName} '%'
+      </if>
+      <if test="stage!=null and stage!=''">
+        and t.stage=#{stage}
+      </if>
+      <if test="type!=null and type!=''">
+        and t.type=#{type}
+      </if>
+      <if test="source!=null and source!=''">
+        and t.source=#{source}
+      </if>
+      <if test="owner!=null and owner!=''">
+        and u1.name like '%' #{owner} '%'
+      </if>
+      <if test="contactsName!=null and contactsName!=''">
+        and c2.fullname like '%' #{contactsName} '%'
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteTranByIds" parameterType="String">
+    delete from tbl_tran where id in
+    <foreach collection="array" item="id" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="selectTranById" parameterType="String" resultMap="BaseResultMap">
+    select t.id, t.owner, t.money, t.name, t.expected_date, c1.name as customer_id, t.stage, t.type, t.source, a.name as activity_id,
+           c2.fullname as contacts_id, t.description, t.contact_summary,
+           t.next_contact_time
+    from tbl_tran t
+           left join tbl_customer c1 on t.customer_id=c1.id
+           left join tbl_contacts c2 on t.contacts_id=c2.id
+           left join tbl_activity a on t.activity_id=a.id
+
+    where t.id=#{id}
+  </select>
+
+  <update id="updateTran" parameterType="com.bjpowernode.crm.workbench.domain.Tran">
+    update tbl_tran
+    set owner=#{owner}, money=#{money}, name=#{name}, expected_date=#{expectedDate}, customer_id=#{customerId}, stage=#{stage}, type=#{type}, source=#{source}, activity_id=#{activityId},
+      contacts_id=#{contactsId}, edit_by=#{editBy}, edit_time=#{editTime}, description=#{description}, contact_summary=#{contactSummary},
+      next_contact_time=#{nextContactTime}
+    where id=#{id}
+  </update>
+
+  <select id="selectTranForDetailByCustomerId" parameterType="String" resultMap="BaseResultMap">
+    select t.id, t.name, t.money, dv2.value as stage, t.expected_date, dv1.value as type
+    from tbl_tran t
+     join tbl_dic_value dv1 on t.type=dv1.id
+     join tbl_dic_value dv2 on t.stage=dv2.id
+    where t.customer_id=#{customerId}
+  </select>
+
+  <select id="selectTranForDetailByContactsId" parameterType="String" resultMap="BaseResultMap">
+    select t.id, t.name, t.money, dv2.value as stage, t.expected_date, dv1.value as type
+    from tbl_tran t
+           join tbl_dic_value dv1 on t.type=dv1.id
+           join tbl_dic_value dv2 on t.stage=dv2.id
+    where t.contacts_id=#{contactsId}
+  </select>
+
+  <select id="selectCountOfTranByContactsId"  resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
+    select c.fullname as name,count(*) as value
+    from tbl_contacts c
+           left join tbl_tran t on t.contacts_id = c.id
+    GROUP by c.id
+  </select>
+
+
+
 </mapper>

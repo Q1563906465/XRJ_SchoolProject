@@ -2,6 +2,7 @@ package com.bjpowernode.crm.workbench.mapper;
 
 import com.bjpowernode.crm.workbench.domain.Activity;
 import com.bjpowernode.crm.workbench.domain.Clue;
+import com.bjpowernode.crm.workbench.domain.FunnelVO;
 
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,12 @@ public interface ClueMapper {
      * @return
      */
     int deleteClueById(String id);
+
+    /**
+     * 查询每个公司产生的线索数量（图表）
+     * @return
+     */
+    List<FunnelVO> selectCountOfCompanyByCompany();
 
 
 }

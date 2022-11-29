@@ -422,4 +422,10 @@
   <delete id="deleteClueById" parameterType="String">
     delete from tbl_clue where id=#{id}
   </delete>
+
+  <select id="selectCountOfCompanyByCompany" resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
+    select c.company as name,count(*) as value
+    from tbl_clue c
+    GROUP by c.company
+  </select>
 </mapper>

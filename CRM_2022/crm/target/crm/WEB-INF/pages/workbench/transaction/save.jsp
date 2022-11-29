@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
         $(function (){
         	//自动补全插件
-			$("#create-customertName").typeahead({
+			$("#create-customerName").typeahead({
 				//静态数据
 				// source:['中华人民共和国','美利坚共和国','大不列颠英国']
 				//动态数据
@@ -107,6 +107,156 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			});
 
+			//给"关联市场活动"按钮添加单击事件
+			$("#bundActivityBtn").click(function(){
+				//清空模态窗口
+				// $("#searchActivityTxt").val("");
+				// $("#tbody").html("");
+				//以下代码的解除关联有bug，疑似remove不能动态绑定
+				var searchActivityTxt=$("#searchActivityTxt").val();
+				if(searchActivityTxt!=""){
+					$("#searchActivityTxt").keyup();
+				}
+				$("#selectActivityModel").modal("show");
+
+			});
+
+			//给市场活动搜索框添加键盘弹起事件
+			$("#searchActivityTxt").keyup(function(){
+				var activityName=this.value;
+				$.ajax({
+					url:'workbench/transaction/queryActivityForDetailByActivityName.do',
+					data:{
+						activityName:activityName,
+					},
+					type:'post',
+					datatype:'json',
+					success:function(data){
+						var htmlStr="";
+						$.each(data,function(index,obj){
+							htmlStr+="<tr id=\"tr_"+obj.id+"\">";
+							htmlStr+="	<td><input type=\"checkbox\" value='"+obj.id+"'/></td>";
+							htmlStr+="	<td>"+obj.name+"</td>";
+							htmlStr+="	<td>"+obj.startDate+"</td>";
+							htmlStr+="	<td>"+obj.endDate+"</td>";
+							htmlStr+="	<td>"+obj.owner+"</td>";
+							htmlStr+="</tr>";
+						});
+						$("#tbody").html(htmlStr);
+					}
+				});
+			});
+
+			//给"关联"按钮添加单击事件
+			$("#saveBundActivityBtn").click(function (){
+				//获取列表中所有被选中的checkbox
+				var checkedIds = $("#tbody input[type='checkbox']:checked");
+				if(checkedIds.size()==0){
+					alert("请选择要关联的市场活动");
+					return;
+				}
+				if(checkedIds.size()>1){
+					alert("请选择一个市场活动");
+					return;
+				}
+				var activityId=""
+				$.each(checkedIds,function(){
+					activityId+=this.value;
+				});
+				$.ajax({
+					url:'workbench/activity/queryActivityById.do',
+					data: {
+						id:activityId
+					},
+					type:'post',
+					datetype:'json',
+					success:function(data){
+						$("#create-activityName").val(data.name);
+					}
+				});
+
+
+				$("#create-activityId").val(activityId);
+
+				$("#selectActivityModel").modal("hide");
+
+
+			});
+
+			//给"关联联系人"按钮添加单击事件
+			$("#bundContactsBtn").click(function(){
+				//清空模态窗口
+				// $("#searchActivityTxt").val("");
+				// $("#tbody").html("");
+				//以下代码的解除关联有bug，疑似remove不能动态绑定
+				var searchContactsTxt=$("#searchContactsTxt").val();
+				if(searchContactsTxt!=""){
+					$("#searchContactsTxt").keyup();
+				}
+				$("#selectContactsModel").modal("show");
+
+			});
+
+			//给联系人搜索框添加键盘弹起事件
+			$("#searchContactsTxt").keyup(function(){
+				var contactsName=this.value;
+				$.ajax({
+					url:'workbench/transaction/queryContactsForDetailByContactsName.do',
+					data:{
+						contactsName:contactsName,
+					},
+					type:'post',
+					datatype:'json',
+					success:function(data){
+						var htmlStr="";
+						$.each(data,function(index,obj){
+							htmlStr+="<tr id=\"tr_"+obj.id+"\">";
+							htmlStr+="	<td><input type=\"checkbox\" value='"+obj.id+"'/></td>";
+							htmlStr+="	<td>"+obj.fullname+"</td>";
+							htmlStr+="	<td>"+obj.email+"</td>";
+							htmlStr+="	<td>"+obj.mphone+"</td>";
+							htmlStr+="</tr>";
+						});
+						$("#tbody_bundContacts").html(htmlStr);
+					}
+				});
+			});
+
+			//给联系人的"关联"按钮添加单击事件
+			$("#saveBundContactsBtn").click(function (){
+				//获取列表中所有被选中的checkbox
+				var checkedIds = $("#tbody_bundContacts input[type='checkbox']:checked");
+				if(checkedIds.size()==0){
+					alert("请选择要关联的联系人");
+					return;
+				}
+				if(checkedIds.size()>1){
+					alert("请选择一个联系人");
+					return;
+				}
+				var contactsId=""
+				$.each(checkedIds,function(){
+					contactsId+=this.value;
+				});
+				$.ajax({
+					url:'workbench/contacts/querycontactsById.do',
+					data: {
+						id:contactsId
+					},
+					type:'post',
+					datetype:'json',
+					success:function(data){
+						$("#create-contactsName").val(data.fullname);
+					}
+				});
+
+
+				$("#create-contactsId").val(contactsId);
+
+				$("#selectContactsModel").modal("hide");
+
+
+			});
 
 
         });
@@ -115,7 +265,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 
 	<!-- 查找市场活动模态窗口 -->
-	<div class="modal fade" id="findMarketActivity" role="dialog">
+	<div class="modal fade" id="selectActivityModel" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 80%;">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -128,7 +278,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="btn-group" style="position: relative; top: 18%; left: 8px;">
 						<form class="form-inline" role="form">
 						  <div class="form-group has-feedback">
-						    <input type="text" class="form-control" style="width: 300px;" placeholder="请输入市场活动名称，支持模糊查询">
+						    <input type="text" id="searchActivityTxt" class="form-control" style="width: 300px;" placeholder="请输入市场活动名称，支持模糊查询">
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 						  </div>
 						</form>
@@ -143,30 +293,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>所有者</td>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>发传单</td>
-								<td>2020-10-10</td>
-								<td>2020-10-20</td>
-								<td>zhangsan</td>
-							</tr>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>发传单</td>
-								<td>2020-10-10</td>
-								<td>2020-10-20</td>
-								<td>zhangsan</td>
-							</tr>
+						<tbody id="tbody">
+<%--							<tr>--%>
+<%--								<td><input type="radio" name="activity"/></td>--%>
+<%--								<td>发传单</td>--%>
+<%--								<td>2020-10-10</td>--%>
+<%--								<td>2020-10-20</td>--%>
+<%--								<td>zhangsan</td>--%>
+<%--							</tr>--%>
+<%--							<tr>--%>
+<%--								<td><input type="radio" name="activity"/></td>--%>
+<%--								<td>发传单</td>--%>
+<%--								<td>2020-10-10</td>--%>
+<%--								<td>2020-10-20</td>--%>
+<%--								<td>zhangsan</td>--%>
+<%--							</tr>--%>
 						</tbody>
 					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="saveBundActivityBtn">关联</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<!-- 查找联系人模态窗口 -->
-	<div class="modal fade" id="findContacts" role="dialog">
+	<div class="modal fade" id="selectContactsModel" role="dialog">
 		<div class="modal-dialog" role="document" style="width: 80%;">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -179,7 +333,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="btn-group" style="position: relative; top: 18%; left: 8px;">
 						<form class="form-inline" role="form">
 						  <div class="form-group has-feedback">
-						    <input type="text" class="form-control" style="width: 300px;" placeholder="请输入联系人名称，支持模糊查询">
+						    <input type="text" id="searchContactsTxt" class="form-control" style="width: 300px;" placeholder="请输入联系人名称，支持模糊查询">
 						    <span class="glyphicon glyphicon-search form-control-feedback"></span>
 						  </div>
 						</form>
@@ -193,21 +347,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td>手机</td>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>李四</td>
-								<td>lisi@bjpowernode.com</td>
-								<td>12345678901</td>
-							</tr>
-							<tr>
-								<td><input type="radio" name="activity"/></td>
-								<td>李四</td>
-								<td>lisi@bjpowernode.com</td>
-								<td>12345678901</td>
-							</tr>
+						<tbody id="tbody_bundContacts">
+<%--							<tr>--%>
+<%--								<td><input type="radio" name="activity"/></td>--%>
+<%--								<td>李四</td>--%>
+<%--								<td>lisi@bjpowernode.com</td>--%>
+<%--								<td>12345678901</td>--%>
+<%--							</tr>--%>
+<%--							<tr>--%>
+<%--								<td><input type="radio" name="activity"/></td>--%>
+<%--								<td>李四</td>--%>
+<%--								<td>lisi@bjpowernode.com</td>--%>
+<%--								<td>12345678901</td>--%>
+<%--							</tr>--%>
 						</tbody>
 					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="saveBundContactsBtn">关联</button>
 				</div>
 			</div>
 		</div>
@@ -253,9 +411,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<div class="form-group">
-			<label for="create-customertName" class="col-sm-2 control-label">客户名称<span style="font-size: 15px; color: red;">*</span></label>
+			<label for="create-customerName" class="col-sm-2 control-label">客户名称<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-customertName" placeholder="支持自动补全，输入客户不存在则新建">
+				<input type="text" class="form-control" id="create-customerName" placeholder="支持自动补全，输入客户不存在则新建">
 			</div>
 			<label for="create-stage" class="col-sm-2 control-label">阶段<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
@@ -319,18 +477,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%--				  <option>聊天</option>--%>
 				</select>
 			</div>
-			<label for="create-activityName" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findMarketActivity"><span class="glyphicon glyphicon-search"></span></a></label>
+			<label for="create-activityName" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" id="bundActivityBtn"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="hidden" id="create-activityId" value="1117335e166741f88063ae6afe38c0f2">
-				<input type="text" class="form-control" id="create-activityName" value="交易活动测试04">
+				<input type="hidden" id="create-activityId" value="">
+				<input type="text" class="form-control" id="create-activityName" value="">
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label for="create-contactsName" class="col-sm-2 control-label">联系人名称&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findContacts"><span class="glyphicon glyphicon-search"></span></a></label>
+			<label for="create-contactsName" class="col-sm-2 control-label">联系人名称&nbsp;&nbsp;<a href="javascript:void(0);" id="bundContactsBtn"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="hidden" id="create-contactsId" value="71a6446b608747759d42dd9da891bbd7">
-				<input type="text" class="form-control" id="create-contactsName" value="粉毛">
+				<input type="hidden" id="create-contactsId" value="">
+				<input type="text" class="form-control" id="create-contactsName" value="">
 			</div>
 		</div>
 		

@@ -1,6 +1,7 @@
 package com.bjpowernode.crm.workbench.service.impl;
 
 import com.bjpowernode.crm.workbench.domain.Activity;
+import com.bjpowernode.crm.workbench.domain.FunnelVO;
 import com.bjpowernode.crm.workbench.mapper.ActivityMapper;
 import com.bjpowernode.crm.workbench.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +72,18 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<Activity> queryActivityForDetailByContactsId(String contactsId) {
+        return activityMapper.selectActivityForDetailByContactsId(contactsId);
+    }
+
+    @Override
     public List<Activity> queryActivityForDetailByNameClueId(Map<String,Object> map) {
         return activityMapper.selectActivityForDetailByNameClueId(map);
+    }
+
+    @Override
+    public List<Activity> queryActivityForDetailByNameContactsId(Map<String, Object> map) {
+        return activityMapper.selectActivityForDetailByNameContactsId(map);
     }
 
     @Override
@@ -83,5 +94,20 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> queryActivityForConvertByNameClueId(Map<String, Object> map) {
         return activityMapper.selectActivityForConvertByNameClueId(map);
+    }
+
+    @Override
+    public List<Activity> queryActivityForDetailByActivityName(String activityName) {
+        return activityMapper.selectActivityForDetailByActivityName(activityName);
+    }
+
+    @Override
+    public List<FunnelVO> queryCountOfClueByActivityId() {
+        return activityMapper.selectCountOfClueByActivityId();
+    }
+
+    @Override
+    public List<FunnelVO> queryCountOfContactsByActivityId() {
+        return activityMapper.selectCountOfContactsByActivityId();
     }
 }

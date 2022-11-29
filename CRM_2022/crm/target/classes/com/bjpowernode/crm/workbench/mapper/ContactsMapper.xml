@@ -378,5 +378,12 @@
     where c.id=#{id}
   </select>
 
+  <select id="selectContactsForDetailByContactsName" parameterType="String" resultMap="BaseResultMap">
+    select id,fullname,email,mphone
+    from tbl_contacts
+    where fullname like '%' #{contactsName} '%'
+  </select>
+
+
 
 </mapper>

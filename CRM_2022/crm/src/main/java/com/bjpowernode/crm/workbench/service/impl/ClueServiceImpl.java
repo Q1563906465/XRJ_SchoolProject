@@ -220,4 +220,9 @@ public class ClueServiceImpl implements ClueService {
         //删除该线索
         clueMapper.deleteClueById(clueId);
     }
+
+    @Override
+    public List<FunnelVO> queryCountOfCompanyByCompany() {
+        return clueMapper.selectCountOfCompanyByCompany();
+    }
 }

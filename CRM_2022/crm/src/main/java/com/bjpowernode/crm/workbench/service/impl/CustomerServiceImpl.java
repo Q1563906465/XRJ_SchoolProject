@@ -1,7 +1,9 @@
 package com.bjpowernode.crm.workbench.service.impl;
 
 import com.bjpowernode.crm.workbench.domain.Customer;
+import com.bjpowernode.crm.workbench.domain.Tran;
 import com.bjpowernode.crm.workbench.mapper.CustomerMapper;
+import com.bjpowernode.crm.workbench.mapper.TranMapper;
 import com.bjpowernode.crm.workbench.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import java.util.Map;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerMapper customerMapper;
+
+    @Autowired
+    private TranMapper tranMapper;
 
     @Override
     public List<String> queryAllCustomerNameByName(String name) {
@@ -58,5 +63,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> queryAllCustomerByName(String name) {
         return customerMapper.selectAllCustomerByName(name);
+    }
+
+    @Override
+    public List<Tran> queryTranForDetailByCustomerId(String customerId) {
+        return tranMapper.selectTranForDetailByCustomerId(customerId);
     }
 }

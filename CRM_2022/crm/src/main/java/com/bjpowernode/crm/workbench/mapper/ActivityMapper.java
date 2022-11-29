@@ -1,6 +1,7 @@
 package com.bjpowernode.crm.workbench.mapper;
 
 import com.bjpowernode.crm.workbench.domain.Activity;
+import com.bjpowernode.crm.workbench.domain.FunnelVO;
 
 import java.util.List;
 import java.util.Map;
@@ -130,6 +131,13 @@ public interface ActivityMapper {
     List<Activity> selectActivityForDetailByClueId(String clueId);
 
     /**
+     * 根据联系人id查询相关联的市场活动明细信息
+     * @param contactsId
+     * @return
+     */
+    List<Activity> selectActivityForDetailByContactsId(String contactsId);
+
+    /**
      * 根据name模糊查询市场活动，并且根据clueID排除已经关联的市场活动
      * @return
      */
@@ -148,5 +156,34 @@ public interface ActivityMapper {
      * @return
      */
     List<Activity> selectActivityForConvertByNameClueId(Map<String,Object> map);
+
+    /**
+     * 根据name模糊查询市场活动，并且查询跟contactsID已经关联的市场活动
+     * @param map
+     * @return
+     */
+    List<Activity> selectActivityForDetailByNameContactsId(Map<String,Object> map);
+
+
+
+    /**
+     * 根据活动名称模糊查询所有活动
+     * @param activityName
+     * @return
+     */
+    List<Activity> selectActivityForDetailByActivityName(String activityName);
+
+    /**
+     * 根据活动id统计线索数量（图表）
+     * @return
+     */
+    List<FunnelVO> selectCountOfClueByActivityId();
+
+    /**
+     * 根据活动id统计联系人数量（图表）
+     * @return
+     */
+    List<FunnelVO> selectCountOfContactsByActivityId();
+
 
 }

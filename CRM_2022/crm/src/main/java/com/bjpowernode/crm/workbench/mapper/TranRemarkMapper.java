@@ -66,4 +66,25 @@ public interface TranRemarkMapper {
      * @return
      */
     List<TranRemark> selectTranRemarkForDetailByTranId(String tranId);
+
+    /**
+     * 保存创建的交易备注
+     * @param remark
+     * @return
+     */
+    int insertTranRemark(TranRemark remark);
+
+    /**
+     * 修改交易备注信息
+     * @param remark
+     * @return
+     */
+    int updateTranRemark(TranRemark remark);
+
+    /**
+     * 根据id 删除交易备注
+     * @param id
+     * @return
+     */
+    int deleteTranRemarkById(String id);
 }

@@ -319,6 +319,15 @@
     where car.clue_id=#{clueId}
   </select>
 
+  <select id="selectActivityForDetailByContactsId" parameterType="String" resultMap="BaseResultMap">
+    select a.id,a.name,a.start_date,a.end_date,u.name as owner
+    from tbl_activity a
+           join tbl_user u on a.owner=u.id
+           join tbl_contacts_activity_relation car on a.id=car.activity_id
+    where car.contacts_id=#{contactsId}
+  </select>
+
+
   <select id="selectActivityForDetailByNameClueId" parameterType="map" resultMap="BaseResultMap">
     select a.id,a.name,a.start_date,a.end_date,u.name as owner
     from tbl_activity a
@@ -329,6 +338,18 @@
         where clue_id=#{clueId}
     )
   </select>
+
+  <select id="selectActivityForDetailByNameContactsId" parameterType="map" resultMap="BaseResultMap">
+    select a.id,a.name,a.start_date,a.end_date,u.name as owner
+    from tbl_activity a
+           join tbl_user u on a.owner=u.id
+    where a.name like '%' #{activityName} '%' and a.id not in (
+        select activity_id
+        from tbl_contacts_activity_relation
+        where contacts_id=#{contactsId}
+      )
+  </select>
+
   <select id="selectActivityForDetailByIds" parameterType="String" resultMap="BaseResultMap">
     select a.id,a.name,a.start_date,a.end_date,u.name as owner
     from tbl_activity a
@@ -349,4 +370,27 @@
         where clue_id=#{clueId}
       )
   </select>
+
+  <select id="selectActivityForDetailByActivityName" parameterType="String" resultMap="BaseResultMap">
+    select a.id,a.name,a.start_date,a.end_date,u.name as owner
+    from tbl_activity a
+    join tbl_user u on a.owner=u.id
+    where a.name like '%' #{activityName} '%'
+  </select>
+
+  <select id="selectCountOfClueByActivityId" resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
+    select a.name as name,count(*) as value
+    from tbl_activity a
+    right JOIN tbl_clue_activity_relation car on a.id = car.activity_id
+    GROUP BY a.id
+  </select>
+
+  <select id="selectCountOfContactsByActivityId" resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
+    select a.name as name,count(*) as value
+    from tbl_activity a
+    right JOIN tbl_contacts_activity_relation car on a.id = car.activity_id
+    GROUP BY a.id
+  </select>
+
+
 </mapper>

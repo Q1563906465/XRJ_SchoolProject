@@ -181,4 +181,19 @@
     left join tbl_user u2 on tr.edit_by=u2.id
     where tr.tran_id=#{tranId}
   </select>
+
+  <insert id="insertTranRemark" parameterType="com.bjpowernode.crm.workbench.domain.TranRemark">
+    insert into tbl_tran_remark(id, note_content, create_time, create_by, edit_flag, tran_id)
+    values(#{id},#{noteContent},#{createTime},#{createBy},#{editFlag},#{tranId})
+  </insert>
+
+  <update id="updateTranRemark" parameterType="com.bjpowernode.crm.workbench.domain.TranRemark">
+    update tbl_tran_remark
+    set note_content=#{noteContent},edit_time=#{editTime},edit_by=#{editBy},edit_flag=#{editFlag}
+    where id=#{id}
+  </update>
+
+  <delete id="deleteTranRemarkById" parameterType="String">
+    delete from tbl_tran_remark where id=#{id}
+  </delete>
 </mapper>

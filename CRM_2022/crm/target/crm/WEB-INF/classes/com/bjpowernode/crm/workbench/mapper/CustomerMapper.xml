@@ -233,7 +233,7 @@
   </insert>
 
   <select id="selectAllCustomerNameByName" parameterType="String" resultType="String">
-    select id,name
+    select name
     from tbl_customer
     where name like '%' #{name} '%'
   </select>

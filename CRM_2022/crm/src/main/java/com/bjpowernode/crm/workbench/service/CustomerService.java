@@ -1,6 +1,7 @@
 package com.bjpowernode.crm.workbench.service;
 
 import com.bjpowernode.crm.workbench.domain.Customer;
+import com.bjpowernode.crm.workbench.domain.Tran;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,6 @@ public interface CustomerService {
     Customer queryCustomerForDetailById(String id);
 
     List<Customer> queryAllCustomerByName(String name);
+
+    List<Tran> queryTranForDetailByCustomerId(String customerId);
 }
