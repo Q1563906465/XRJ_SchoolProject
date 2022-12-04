@@ -41,8 +41,12 @@ public class ChartController {
 
     @RequestMapping("/workbench/chart/transaction/queryCountOfTranByContactsId.do")
     public @ResponseBody Object queryCountOfTranByContactsId(){
-        List<FunnelVO> funnelVOList = tranService.queryCountOfTranByContactsId();
-        Iterator<FunnelVO> iterator = funnelVOList.iterator();
+        List<FunnelVO> funnelVOListContacts = tranService.queryCountOfTranByContactsId();
+        List<FunnelVO> funnelVOListCustomer = tranService.queryCountOfTranByCustomerId();
+        List<List<FunnelVO>> list = new ArrayList<>();
+        list.add(funnelVOListContacts);
+        list.add(funnelVOListCustomer);
+//        Iterator<FunnelVO> iterator = funnelVOList.iterator();
 //        List<String> nameList = new ArrayList<>();
 //        List<Integer> valueList = new ArrayList<>();
 //
@@ -56,7 +60,7 @@ public class ChartController {
 //        list.add(nameList);
 //        list.add(valueList);
 
-        return funnelVOList;
+        return list;
     }
 
     @RequestMapping("/workbench/chart/clue/index.do")

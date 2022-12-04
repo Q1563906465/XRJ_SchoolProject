@@ -30,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//加载线索页面后，查询页面线索信息
 		queryTranByConditionForPage(1,10);
 
+
 		//给"查询"按钮添加单击事件
 		$("#queryTranBtn").click(function(){
 			queryTranByConditionForPage(1,$("#demo_pag1").bs_pagination("getOption","rowsPerPage"));

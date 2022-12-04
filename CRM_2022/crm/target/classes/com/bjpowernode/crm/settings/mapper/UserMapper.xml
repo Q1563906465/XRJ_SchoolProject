@@ -239,4 +239,10 @@
     from tbl_user
     where lock_state='1'
   </select>
+
+  <update id="updatePwd" parameterType="map">
+    update tbl_user
+    set login_pwd=#{newPwd}
+    where id=#{id} and login_pwd=#{loginPwd}
+  </update>
 </mapper>

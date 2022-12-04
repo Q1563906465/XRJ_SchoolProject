@@ -42,6 +42,36 @@
         $("#logoutBtn").click(function(){
             window.location.href="settings/qx/user/logout.do";
         });
+
+        //给“密码更新”按钮添加单击事件
+		$("#editPwdBtn").click(function(){
+			var id="${sessionScope.sessionUser.id}";
+			var loginPwd=$("#login-pwd").val();
+			var newPwd=$("#new-pwd").val();
+			var comfirmPwd=$("#confirm-pwd").val();
+			if(newPwd != comfirmPwd){
+				alert("两次密码输入不同，请重新输入");
+				return;
+			}
+			$.ajax({
+				url:'settings/qx/user/editPwd.do',
+				data:{
+					id:id,
+					loginPwd:loginPwd,
+					newPwd:newPwd
+				},
+				type:'post',
+				dataType:'json',
+				success:function(data){
+					if(data.code == "1"){
+						window.location.href = 'settings/qx/user/logout.do';
+					}else{
+						alert(data.message);
+					}
+				}
+			})
+
+		})
 	});
 
 </script>
@@ -61,12 +91,12 @@
 				</div>
 				<div class="modal-body">
 					<div style="position: relative; left: 40px;">
-						姓名：<b>张三</b><br><br>
-						登录帐号：<b>zhangsan</b><br><br>
-						组织机构：<b>1005，市场部，二级部门</b><br><br>
-						邮箱：<b>zhangsan@bjpowernode.com</b><br><br>
-						失效时间：<b>2017-02-14 10:10:10</b><br><br>
-						允许访问IP：<b>127.0.0.1,192.168.100.2</b>
+						姓名：<b>${sessionScope.sessionUser.name}</b><br><br>
+						登录帐号：<b>${sessionScope.sessionUser.loginAct}</b><br><br>
+						组织机构：<b>${sessionScope.sessionUser.deptno}，市场部，一级部门</b><br><br>
+						邮箱：<b>${sessionScope.sessionUser.email}</b><br><br>
+						失效时间：<b>${sessionScope.sessionUser.expireTime}</b><br><br>
+						允许访问IP：<b>${sessionScope.sessionUser.allowIps}</b>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -89,30 +119,30 @@
 				<div class="modal-body">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label for="oldPwd" class="col-sm-2 control-label">原密码</label>
+							<label for="login-pwd" class="col-sm-2 control-label">原密码</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="oldPwd" style="width: 200%;">
+								<input type="text" class="form-control" id="login-pwd" style="width: 200%;">
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="newPwd" class="col-sm-2 control-label">新密码</label>
+							<label for="new-pwd" class="col-sm-2 control-label">新密码</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="newPwd" style="width: 200%;">
+								<input type="text" class="form-control" id="new-pwd" style="width: 200%;">
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="confirmPwd" class="col-sm-2 control-label">确认密码</label>
+							<label for="confirm-pwd" class="col-sm-2 control-label">确认密码</label>
 							<div class="col-sm-10" style="width: 300px;">
-								<input type="text" class="form-control" id="confirmPwd" style="width: 200%;">
+								<input type="text" class="form-control" id="confirm-pwd" style="width: 200%;">
 							</div>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="window.location.href='../login.html';">更新</button>
+					<button type="button" class="btn btn-primary" id="editPwdBtn">更新</button>
 				</div>
 			</div>
 		</div>
@@ -149,7 +179,7 @@
 						<span class="glyphicon glyphicon-user"></span> ${sessionScope.sessionUser.name} <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="../settings/index.html"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>
+<%--						<li><a href="../settings/index.html"><span class="glyphicon glyphicon-wrench"></span> 系统设置</a></li>--%>
 						<li><a href="javascript:void(0)" data-toggle="modal" data-target="#myInformation"><span class="glyphicon glyphicon-file"></span> 我的资料</a></li>
 						<li><a href="javascript:void(0)" data-toggle="modal" data-target="#editPwdModal"><span class="glyphicon glyphicon-edit"></span> 修改密码</a></li>
 						<li><a href="javascript:void(0);" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-off"></span> 退出</a></li>

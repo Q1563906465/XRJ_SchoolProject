@@ -41,6 +41,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 			});
 
+			//对容器加载日历-工具函数
+			$("#create-nextContactTime").datetimepicker({
+				language:'zh-CN',
+				format:'yyyy-mm-dd',
+				minView:'month',
+				initialDate:new Date(),
+				autoclose:true,
+				todayBtn:true,
+				clearBtn:true
+			});
+			//对容器加载日历-工具函数
+			$("#create-expectedDate").datetimepicker({
+				language:'zh-CN',
+				format:'yyyy-mm-dd',
+				minView:'month',
+				initialDate:new Date(),
+				autoclose:true,
+				todayBtn:true,
+				clearBtn:true
+			});
+
+
             $("#create-stage").change(function(){
                // var stageValue=$(this).find("option:selected").text();
                 var stageValue=$("#create-stage option:selected").text();
@@ -406,7 +428,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<label for="create-expectedDate" class="col-sm-2 control-label">预计成交日期<span style="font-size: 15px; color: red;">*</span></label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-expectedDate">
+				<input type="text" class="form-control" id="create-expectedDate" readonly>
 			</div>
 		</div>
 		
@@ -509,7 +531,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-group">
 			<label for="create-nextContactTime" class="col-sm-2 control-label">下次联系时间</label>
 			<div class="col-sm-10" style="width: 300px;">
-				<input type="text" class="form-control" id="create-nextContactTime">
+				<input type="text" class="form-control" id="create-nextContactTime" readonly>
 			</div>
 		</div>
 		

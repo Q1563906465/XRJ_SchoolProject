@@ -418,9 +418,15 @@
 
   <update id="updateTran" parameterType="com.bjpowernode.crm.workbench.domain.Tran">
     update tbl_tran
-    set owner=#{owner}, money=#{money}, name=#{name}, expected_date=#{expectedDate}, customer_id=#{customerId}, stage=#{stage}, type=#{type}, source=#{source}, activity_id=#{activityId},
-      contacts_id=#{contactsId}, edit_by=#{editBy}, edit_time=#{editTime}, description=#{description}, contact_summary=#{contactSummary},
-      next_contact_time=#{nextContactTime}
+    set owner=#{owner}, money=#{money}, name=#{name}, expected_date=#{expectedDate}, customer_id=#{customerId}, stage=#{stage}, type=#{type}, source=#{source},
+    <if test="activityId!=null and activityId!=''">
+      activity_id=#{activityId},
+    </if>
+    <if test="contactsId!=null and contactsId!=''">
+      contacts_id=#{contactsId},
+    </if>
+        edit_by=#{editBy}, edit_time=#{editTime}, description=#{description}, contact_summary=#{contactSummary},
+        next_contact_time=#{nextContactTime}
     where id=#{id}
   </update>
 
@@ -442,8 +448,15 @@
 
   <select id="selectCountOfTranByContactsId"  resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
     select c.fullname as name,count(*) as value
-    from tbl_contacts c
-           left join tbl_tran t on t.contacts_id = c.id
+    from tbl_tran t
+           left join tbl_contacts c on t.contacts_id = c.id
+    GROUP by c.id
+  </select>
+
+  <select id="selectCountOfTranByCustomerId"  resultType="com.bjpowernode.crm.workbench.domain.FunnelVO">
+    select c.name as name,count(*) as value
+    from tbl_tran t
+      left join tbl_customer c on t.customer_id = c.id
     GROUP by c.id
   </select>
 

@@ -26,5 +26,7 @@ public interface TranService {
 
     List<FunnelVO> queryCountOfTranByContactsId();
 
+    List<FunnelVO> queryCountOfTranByCustomerId();
+
 
 }

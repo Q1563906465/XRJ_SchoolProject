@@ -166,4 +166,9 @@ public class TranServiceImpl implements TranService {
     public List<FunnelVO> queryCountOfTranByContactsId() {
         return tranMapper.selectCountOfTranByContactsId();
     }
+
+    @Override
+    public List<FunnelVO> queryCountOfTranByCustomerId() {
+        return tranMapper.selectCountOfTranByCustomerId();
+    }
 }

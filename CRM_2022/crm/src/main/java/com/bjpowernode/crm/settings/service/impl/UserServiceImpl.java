@@ -25,5 +25,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectAllUsers();
     }
 
-
+    @Override
+    public int editPwd(Map<String, String> map) {
+        return userMapper.updatePwd(map);
+    }
 }

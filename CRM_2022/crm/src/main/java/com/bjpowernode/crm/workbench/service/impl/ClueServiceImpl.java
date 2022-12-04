@@ -189,6 +189,10 @@ public class ClueServiceImpl implements ClueService {
             tran.setName((String) map.get("name"));
             tran.setOwner(user.getId());
             tran.setStage((String) map.get("stage"));
+
+            //防止空值，默认设置
+            tran.setType("97d1128f70294f0aac49e996ced28c8a");
+            tran.setSource("3a39605d67da48f2a3ef52e19d243953");
             tranMapper.insertTran(tran);
 
             //把该线索的备注转换到交易的备注表中

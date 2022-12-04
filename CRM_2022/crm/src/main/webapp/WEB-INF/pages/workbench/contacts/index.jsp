@@ -30,7 +30,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    });
 
 		//加载线索页面后，查询页面线索信息
-		queryContactsByConditionForPage(1,10)
+		queryContactsByConditionForPage(1,10);
+		//对容器加载日历-工具函数
+		$("#create-nextContactTime").datetimepicker({
+			language:'zh-CN',
+			format:'yyyy-mm-dd',
+			minView:'month',
+			initialDate:new Date(),
+			autoclose:true,
+			todayBtn:true,
+			clearBtn:true
+		});
 
 		//给列表中所有checkBox添加点击事件    (给固有元素的子标签——动态元素添加鼠标单击事件）
 		$("#tbodyContacts").on("click","input[type='checkbox']",function(){
@@ -444,7 +454,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="form-group">
 								<label for="create-nextContactTime" class="col-sm-2 control-label">下次联系时间</label>
 								<div class="col-sm-10" style="width: 300px;">
-									<input type="text" class="form-control" id="create-nextContactTime">
+									<input type="text" class="form-control" id="create-nextContactTime" readonly>
 								</div>
 							</div>
 						</div>

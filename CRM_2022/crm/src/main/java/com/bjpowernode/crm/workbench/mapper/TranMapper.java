@@ -131,5 +131,11 @@ public interface TranMapper {
      */
     List<FunnelVO> selectCountOfTranByContactsId();
 
+    /**
+     * 根据客户id查询对应的交易数量
+     * @return
+     */
+    List<FunnelVO> selectCountOfTranByCustomerId();
 
+    List<Tran> selectSuccessfulTranByStage();
 }

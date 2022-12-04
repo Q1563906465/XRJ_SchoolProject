@@ -104,4 +104,30 @@ public class UserController {
 
         return "redirect:/";
     }
+
+    @RequestMapping("/settings/qx/user/editPwd.do")
+    public @ResponseBody Object editPwd(String id, String loginPwd, String newPwd){
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("loginPwd", loginPwd);
+        map.put("newPwd", newPwd);
+        ReturnObject returnObject = new ReturnObject();
+        try{
+            int res = userService.editPwd(map);
+            if(res > 0){
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_SUCCESS);
+            }else{
+                returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+                returnObject.setMessage("系统繁忙，请稍后重试......");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            returnObject.setCode(Constants.RETURN_OBJECT_CODE_FAIL);
+            returnObject.setMessage("系统繁忙，请稍后重试......");
+        }
+        return returnObject;
+
+
+    }
+
 }

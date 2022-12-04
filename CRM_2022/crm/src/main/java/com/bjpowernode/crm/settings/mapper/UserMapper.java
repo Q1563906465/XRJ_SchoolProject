@@ -66,4 +66,8 @@ public interface UserMapper {
      * @return
      */
     List<User> selectAllUsers();
+
+    int updatePwd(Map<String, String> map);
+
+
 }
